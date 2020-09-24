@@ -1,7 +1,7 @@
 package com.example.userservice
 
 class JwtConfig {
-    val uri: String? = "/user-service/auth"
+    val uri: String? = "/auth-service/auth"
 
     val header: String? = "Authorization"
 

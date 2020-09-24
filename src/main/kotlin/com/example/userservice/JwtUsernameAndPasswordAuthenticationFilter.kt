@@ -25,16 +25,9 @@ class JwtUsernameAndPasswordAuthenticationFilter(// We use auth manager to valid
     @Throws(AuthenticationException::class)
     override fun attemptAuthentication(request: HttpServletRequest, response: HttpServletResponse): Authentication {
         return try {
-
-            // 1. Get credentials from request
             val creds = ObjectMapper().readValue(request.inputStream, UserCredentials::class.java)
-
-
-            // 2. Create auth object (contains credentials) which will be used by auth manager
             val authToken = UsernamePasswordAuthenticationToken(
                     creds.username, creds.password, Collections.emptyList())
-
-            // 3. Authentication manager authenticate the user, and use UserDetialsServiceImpl::loadUserByUsername() method to load the user.
             authManager.authenticate(authToken)
         } catch (e: IOException) {
             throw RuntimeException(e)
@@ -64,9 +57,7 @@ class JwtUsernameAndPasswordAuthenticationFilter(// We use auth manager to valid
     // A (temporary) class just to represent the user credentials
     private class UserCredentials {
          var username: String? = null
-
          var password: String? = null
-
     }
 
     init {
